@@ -1,0 +1,40 @@
+# Directory where working directories are kept.
+WORKDIR_PATH="workdirs"
+# Name of stamp file placed in active working directories.
+ACTIVE_STAMP_NAME=".workman_active_working_directory"
+# Name of stamp file placed in working directories that are updated but not assigned.
+DO_NOT_ASSIGN_STAMP_NAME=".workman_do_not_assign"
+# Name of stamp file placed in working directories that need updated before being assigned again.
+NEEDS_REFRESH_STAMP_FILE=".workman_needs_refresh"
+
+# Name of project, used in working directory names.
+PROJECT_NAME="rust"
+# Default branch to check out and update.
+DEFAULT_BRANCH="master"
+# Name of upstream remote to create and update from.
+UPSTREAM_NAME="upstream"
+# Url of upstream remote to create and update from.
+UPSTREAM_URL="git@github.com:rust-lang/rust.git"
+# Name of origin remote to clone from.
+ORIGIN_NAME="origin"
+# Url of origin remote to clone from.
+ORIGIN_URL="git@github.com:davidtwco/rust.git"
+
+# Command to run before creating a new working directory.
+BEFORE_COMMAND="ln -s ../../config.toml ./config.toml"
+# Command to run to clean a working directory.
+CLEAN_COMMAND="python2 x.py clean -j8"
+# Command to run to build in a working directory.
+BUILD_COMMAND="python2 x.py build -j8"
+# Command to run after creating a new working directory.
+AFTER_COMMAND="rustup toolchain link \$(basename \$(pwd))-stage1 ./build/x86_64-unknown-linux-gnu/stage1"
+# Command to run to resume a session.
+SESSION_REATTACH_COMMAND="tmux new -A -s \\\"\${PROJECT_NAME}/\${TASK}\\\""
+# Command to run to start a session.
+SESSION_ATTACH_COMMAND="\${SESSION_REATTACH_COMMAND}"
+# Command to run to kill a session.
+SESSION_KILL_COMMAND="tmux kill-session -t \\\"\${PROJECT_NAME}/\${TASK}\\\""
+# Command to run to check if a session exists.
+SESSION_CHECK_COMMAND="tmux ls -F \\\"#S\\\" | grep \\\"\${PROJECT_NAME}/\${TASK}\\\""
+
+# vim:ft=sh
