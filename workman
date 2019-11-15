@@ -32,8 +32,8 @@ ROOT_WORKTREE_INDEX="0"
 
 # Load configuration options from bash script in current directory. Allow same directory to host
 # multiple projects by specifying custom config files using environment variables.
-WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-.workman_config}"
-if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
+WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-./.workman_config}"
+if [ ! -f ${WORKMAN_CONFIG_FILE} ]; then
     echo "${RED}Workman must be run in a directory with a ${WORKMAN_CONFIG_FILE} file!${RESET}" >&2
     SCRIPT_PATH="$(cd "$(dirname "$0")" ; pwd -P)"
     WORKMAN_DEFAULT_CONFIG_EXAMPLE_PATH="${SCRIPT_PATH}/workman_default_config"
@@ -64,7 +64,7 @@ _load_config() {
     SESSION_CHECK_COMMAND="tmux ls -F \"#S\" | grep \"${PROJECT_NAME}/${TASK}\""
 
     # Load the config file.
-    source ${WORKMAN_CONFIG_FILE_PATH}
+    source ${WORKMAN_CONFIG_FILE}
 
     # Update helper variables after loading.
     if [ "${USE_GIT_WORKTREE}" == "YES" ]; then
@@ -74,7 +74,6 @@ _load_config() {
     fi
 }
 
-WORKMAN_CONFIG_FILE_PATH="${PWD}/${WORKMAN_CONFIG_FILE}"
 _load_config
 
 # Print out all the directories in the working directory path that start
