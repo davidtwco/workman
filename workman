@@ -32,7 +32,7 @@ ROOT_WORKTREE_INDEX="0"
 
 # Load configuration options from bash script in current directory. Allow same directory to host
 # multiple projects by specifying custom config files using environment variables.
-WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-./.workman_config}"
+WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-$PWD/.workman_config}"
 if [ ! -f ${WORKMAN_CONFIG_FILE} ]; then
     echo "${RED}Workman must be run in a directory with a ${WORKMAN_CONFIG_FILE} file!${RESET}" >&2
     SCRIPT_PATH="$(cd "$(dirname "$0")" ; pwd -P)"
