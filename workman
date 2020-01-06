@@ -187,6 +187,7 @@ new() {
         echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
         git checkout "${DEFAULT_BRANCH}"
         popd
+        pushd "${NEXT_WORKDIR_PATH}"
     else
         # Get the absolute path of the next working directory, since we'll need this to refer to it
         # once in the root working directory.
@@ -197,9 +198,15 @@ new() {
         pushd "${ROOT_WORKDIR_PATH}"
         git worktree add --detach "${ABSOLUTE_NEXT_WORKDIR_PATH}"
         popd
-    fi
 
-    pushd "${NEXT_WORKDIR_PATH}"
+        pushd "${ABSOLUTE_NEXT_WORKDIR_PATH}"
+        echo "${YELLOW}::${RESET} Cleaning working directory..."
+        git reset --hard
+        git clean -df
+
+        echo "${YELLOW}::${RESET} Checking out ${UPSTREAM_NAME}/${DEFAULT_BRANCH}..."
+        git checkout "${UPSTREAM_NAME}/${DEFAULT_BRANCH}"
+    fi
 
     # Re-load configuration file so that any commands have `pwd` evaluated in the current working
     # directory.
