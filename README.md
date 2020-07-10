@@ -1,3 +1,6 @@
+# Deprecation notice
+This project has been archived and isn't used anymore.
+
 # Workman
 Workman is a working directory management utility, it is designed for use with large projects where
 you typically have multiple clones/worktrees of the upstream repository to avoid rebuilding when
